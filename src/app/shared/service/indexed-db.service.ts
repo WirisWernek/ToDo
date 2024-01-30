@@ -14,7 +14,7 @@ export abstract class IndexedDBAbstract<T extends BaseModel> {
 	}
 
 	private criarDatabase() {
-		const database = new Dexie('database');
+		const database = new Dexie(environment.DATABASE_NAME);
 		database.version(3).stores(environment.INDEXEDDB_TABLES);
 		database.version(3).stores({
 			[this.nomeTabela]: '++id',
@@ -23,20 +23,18 @@ export abstract class IndexedDBAbstract<T extends BaseModel> {
 		return database;
 	}
 
-	getAll() {
+	async getAll() {
 		let allItens: T[] = [];
-		this.table.toArray().then((values) => {
-			if (values !== undefined && values !== null) {
+		await await this.table.toArray().then(async (values) => {
+			if (values != undefined && values != null) {
 				allItens = values;
-				return allItens;
-			} else {
-				return allItens;
 			}
 		});
+		return allItens;
 	}
 
-	getById(id: number) {
-		return this.table.get(id).then(async (item) => {
+	async getById(id: number) {
+		await this.table.get(id).then(async (item) => {
 			if (item !== undefined && item !== null) {
 				const model: T = item;
 				return model;
@@ -46,8 +44,8 @@ export abstract class IndexedDBAbstract<T extends BaseModel> {
 		});
 	}
 
-	salvar(modelo: T) {
-		this.table
+	async salvar(modelo: T) {
+		await this.table
 			.add(modelo)
 			.then(async (id) => {
 				console.log(`Salvo item de Id ${id} na tabela ${this.nomeTabela}.`);
@@ -57,19 +55,19 @@ export abstract class IndexedDBAbstract<T extends BaseModel> {
 			);
 	}
 
-	update(modelo: T) {
-		this.table
+	async update(modelo: T) {
+		await this.table
 			.update(modelo.id, modelo)
 			.then(async (id) => {
-				console.log(`Atualizado item de Id ${id} na tabela ${this.nomeTabela}.`);
+				console.log(`Atualizado item de Id ${modelo.id} na tabela ${this.nomeTabela}.`);
 			})
 			.catch((err) =>
 				console.log(`Erro ao incluir ${modelo} na tabela ${this.nomeTabela} no IndexedDb.`, err)
 			);
 	}
 
-	deleteById(id: number) {
-		this.table.delete(id).then(async () => {
+	async deleteById(id: number) {
+		await this.table.delete(id).then(async () => {
 			console.log(`Item com ID ${id} deletado na tabela ${this.nomeTabela} do IndexedDb.`);
 		});
 	}
