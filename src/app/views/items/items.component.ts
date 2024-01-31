@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ConfirmModalComponent } from 'src/app/components/modals/confirm-modal/confirm-modal.component';
+import { ItemModalComponent } from 'src/app/components/modals/item-modal/item-modal.component';
 import { ItemModel } from 'src/app/models/item.model';
 import { ItensService } from 'src/app/services/itens.service';
 
@@ -9,10 +12,39 @@ import { ItensService } from 'src/app/services/itens.service';
 })
 export class ItemsComponent implements OnInit {
 	listItems: ItemModel[] = [];
-	constructor(private itensService: ItensService) {}
+	constructor(private itensService: ItensService, private modalService: NgbModal) {}
+
+	addNovo() {
+		let modalRef = this.modalService.open(ItemModalComponent, { size: 'md', centered: true });
+		modalRef.componentInstance.isNew = true;
+		modalRef.closed.subscribe(() => {
+			this.getAll();
+		});
+	}
+
+	editarItem(item: ItemModel) {
+		let modalRef = this.modalService.open(ItemModalComponent, { size: 'md', centered: true });
+		modalRef.componentInstance.isNew = false;
+		modalRef.componentInstance.texto = item.texto;
+		modalRef.componentInstance.id = item.id;
+		modalRef.closed.subscribe(() => {
+			this.getAll();
+		});
+	}
+
+	excluirItem(item: ItemModel) {
+		let modalRef = this.modalService.open(ConfirmModalComponent, { size: 'md', centered: true });
+		modalRef.componentInstance.item = item;
+		modalRef.result.then((valor) => {
+			if (valor === 'Ok click') {
+				this.itensService.deleteById(item.id).then(() => {
+					this.getAll();
+				});
+			}
+		});
+	}
 
 	ngOnInit(): void {
-		// this.save();
 		this.getAll();
 	}
 
@@ -34,7 +66,6 @@ export class ItemsComponent implements OnInit {
 				if (b.feito) return -1;
 				return 0;
 			});
-
 			this.listItems = itens;
 		});
 	}

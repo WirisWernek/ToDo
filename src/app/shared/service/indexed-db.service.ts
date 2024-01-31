@@ -34,14 +34,7 @@ export abstract class IndexedDBAbstract<T extends BaseModel> {
 	}
 
 	async getById(id: number) {
-		await this.table.get(id).then(async (item) => {
-			if (item !== undefined && item !== null) {
-				const model: T = item;
-				return model;
-			} else {
-				return null;
-			}
-		});
+		return await this.table.get(id);
 	}
 
 	async salvar(modelo: T) {

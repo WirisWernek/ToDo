@@ -1,0 +1,15 @@
+<div class="modal-header d-flex justify-content-center">
+	<h4 class="modal-title text-center">Nova Tarefa</h4>
+</div>
+<div class="modal-body">
+	<div class="">
+		<label for="item" class="form-label">Tarefa</label>
+		<input type="text" [(ngModel)]="texto" name="texto" id="item" class="form-control" required />
+	</div>
+</div>
+<div class="modal-footer d-flex justify-content-center">
+	<button type="button" class="btn btn-danger" (click)="modal.close('Close click')">
+		Cancelar
+	</button>
+	<button type="button" class="btn btn-success" (click)="save()">Salvar</button>
+</div>

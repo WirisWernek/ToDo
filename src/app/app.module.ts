@@ -7,11 +7,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
 import { ItemsComponent } from './views/items/items.component';
+import { ItemModalComponent } from './components/modals/item-modal/item-modal.component';
+import { ConfirmModalComponent } from './components/modals/confirm-modal/confirm-modal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ItemsComponent
+    ItemsComponent,
+    ItemModalComponent,
+    ConfirmModalComponent
   ],
   imports: [
     BrowserModule,
