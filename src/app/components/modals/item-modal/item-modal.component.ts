@@ -18,6 +18,7 @@ export class ItemModalComponent {
 	async save() {
 		if (this.isNew) {
 			this.itensService.salvar(new ItemModel(this.texto, false));
+			this.modal.close();
 		} else {
 			await this.itensService.getById(this.id).then((itemBanco) => {
 				if (itemBanco !== undefined && itemBanco !== null) {

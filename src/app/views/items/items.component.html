@@ -1,18 +1,25 @@
-<app-navbar><button class="btn btn-primary" botao (click)="addNovo()">Novo</button></app-navbar>
+<app-navbar>
+	<button class="btn btn-primary rounded-pill align-self-end" botao (click)="addNovo()">
+		<span class="d-flex flex-row align-items-center justify-content-center gap-2">
+			<i class="bi bi-plus-circle"></i>
+			<p class="mb-0">Adicionar</p>
+		</span>
+
+	</button>
+</app-navbar>
 
 <div class="d-flex justify-content-center align-items-center flex-column mt-4">
-	<h3 class="mb-3">Itens</h3>
 	
 	<ng-container [ngTemplateOutlet]="listItems.length > 0 ? loadedItems : loading "></ng-container>
 
 	<ng-template #loadedItems>
-		<ul class="list-group width">
-			<li *ngFor="let item of listItems" class="list-group-item d-flex justify-content-between">
-				<div class="form-check" >
+		<ul class="list-group gap-2 width">
+			<li *ngFor="let item of listItems" class="list-group-item border-1 rounded-pill">
+				<div class="form-check align-items-center" >
 					<input class="form-check-input" type="checkbox" [(ngModel)]="item.feito" id="{{item.id}}" (change)="atualizarStatus(item)"/>
 					<label [ngClass]="item.feito ? 'text-decoration-line-through' : ''" class="form-check-label" for="{{item.id}}"> {{item.texto}} </label>
 				</div>
-				<div class="align-self-end d-flex" >
+				<div class="icons" >
 					<i style="width: 2rem;" class="text-primary bi bi-pencil-square" (click)="editarItem(item)"></i>
 					<i style="width: 2rem;" class="text-danger bi bi-trash3" (click)="excluirItem(item)"></i>
 				</div>

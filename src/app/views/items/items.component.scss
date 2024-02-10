@@ -1,7 +1,35 @@
-label:hover, i:hover{
+.form-check {
+	max-width: 70% !important;
+}
+
+label:hover,
+i:hover {
 	cursor: pointer;
 }
 
+.icons {
+	height: 100% ;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+
+.list-group-item {
+	transition: all 0.3s;
+	background-color: #ade8f4;
+	display: flex ;
+	flex-direction: row ;
+	justify-content: space-between ;
+	align-items: center ;
+	align-content: center ;
+	flex-wrap: wrap;
+	&:hover {
+		background-color: #48cae4;
+		transform: scale(1.025);
+		filter: blur(0);
+	}
+}
 @media (max-width: 768px) {
 	.width {
 		width: 80%;

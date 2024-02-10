@@ -1,5 +1,5 @@
 <div class="modal-header d-flex justify-content-center">
-	<h4 class="modal-title text-center">Nova Tarefa</h4>
+	<h4 class="modal-title text-center">{{ isNew ? 'Nova Tarefa' : 'Editar Tarefa'}}</h4>
 </div>
 <div class="modal-body">
 	<div class="">
@@ -8,8 +8,8 @@
 	</div>
 </div>
 <div class="modal-footer d-flex justify-content-center">
-	<button type="button" class="btn btn-danger" (click)="modal.close('Close click')">
+	<button type="button" class="btn btn-danger rounded-pill" (click)="modal.close('Close click')">
 		Cancelar
 	</button>
-	<button type="button" class="btn btn-success" (click)="save()">Salvar</button>
+	<button type="button" class="btn btn-success rounded-pill" (click)="save()">Salvar</button>
 </div>
